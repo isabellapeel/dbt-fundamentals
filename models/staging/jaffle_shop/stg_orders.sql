@@ -7,4 +7,5 @@ select
     order_date,
     status
 
-from raw.jaffle_shop.orders
+-- adding source instead of from statement (specify schema and table name) 
+from {{ source ('jaffle_shop', 'orders') }}

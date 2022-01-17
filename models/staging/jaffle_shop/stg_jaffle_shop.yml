@@ -1,0 +1,40 @@
+# YML for stg_jaffle_shop - shows tests, descriptions, defines primary key etc. 
+version: 2 
+
+models:
+ # generic test for customer id column (unique key) in stg_cutsomer sql code 
+  - name: stg_customers
+    description: Staged customer data from our jaffle shop app
+    columns: 
+      - name: customer_id
+        description: Primary key for stg_customers
+        tests:
+          - unique
+          - not_null
+
+# run accepted value test in stg_orders code (using order_id as primary key)
+  - name: stg_orders
+    description: Staged order data from our jaffle shop app
+    columns:
+      - name: order_id
+        description: Primary key for orders 
+        tests:
+          - unique
+          - not_null
+      - name: status
+        # use markdown descrioption doc block. DONT forget quotes on outside - also doc block does not refer to file name, refers to tatle of doc block itself 
+        description: "{{ doc('order_status') }}"
+        tests:
+          - accepted_values:
+              values:
+                - completed
+                - shipped
+                - returned
+                - return_pending
+                - placed
+      - name: customer_id
+        description: Foreign key to stg_customers.customer_id
+        tests:
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id

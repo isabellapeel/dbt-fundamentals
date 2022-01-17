@@ -9,7 +9,8 @@ select
     (amount/100) as amount, 
     created as created_at
 
-from raw.stripe.payment
+-- including source file 
+from {{ source( 'stripe', 'payment')}}
 
 
 

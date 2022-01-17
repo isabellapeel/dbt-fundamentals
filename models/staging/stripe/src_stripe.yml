@@ -1,0 +1,9 @@
+# creating source yml for stripe schema with payments table) 
+version: 2
+
+sources:
+  - name: stripe
+    database: raw
+    schema: stripe
+    tables:
+      - name: payment

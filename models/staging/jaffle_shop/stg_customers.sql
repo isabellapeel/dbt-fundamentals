@@ -5,4 +5,5 @@ select
     first_name,
     last_name
 
-from raw.jaffle_shop.customers
+-- adding source instead of from statement (specify schema and table name) 
+from {{ source('jaffle_shop', 'customers') }}
